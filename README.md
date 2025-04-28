@@ -82,8 +82,6 @@ Install Node.js and NPM:
 
 Set Up Environment Variables:
 
-    Create a .env file in the root directory of the project if it doesn't already exist.
-
     Set the environment variable for the API URL:
 
     apiUrl=http://backend-api-url-here
