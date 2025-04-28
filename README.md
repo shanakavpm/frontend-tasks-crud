@@ -54,6 +54,46 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## Project setup
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Steps to Set Up Angular 19 Project:
+
+    Clone the Project from GitHub:
+
+        Open your terminal/command prompt.
+
+        Clone the repository using the following command:
+
+    git clone <repository_url>
+
+Navigate to the Project Directory:
+
+    After cloning, navigate to the project directory:
+
+    cd frontend-task-crud
+
+Install Node.js and NPM:
+
+    Make sure you have Node.js installed on your machine.
+
+    Install the necessary dependencies for the project by running:
+
+    npm install
+
+Set Up Environment Variables:
+
+    Create a .env file in the root directory of the project if it doesn't already exist.
+
+    Set the environment variable for the API URL:
+
+    apiUrl=http://backend-api-url-here
+
+Run the Angular Project:
+
+    Start the Angular development server by running the following command:
+
+    ng serve
+
+Access the Application:
+
+    After running the above command, navigate to http://localhost:4200/ in your browser to access the application.
