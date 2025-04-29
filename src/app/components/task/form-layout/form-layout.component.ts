@@ -96,19 +96,12 @@ export default class TaskFormLayoutComponent {
       user_id: this.user.id ?? 0,
     };
 
-    const task: Task = {
-      ...newTaskRequest,
-      id: this.taskId ?? 0,
-      user_name: '',
-      status: '',
-    };
-
     if (this.editMode && this.taskId !== null) {
-      this.taskService.update(this.taskId, task).subscribe({
+      this.taskService.update(this.taskId, newTaskRequest).subscribe({
         next: () => this.router.navigate(['/tasks']),
       });
     } else {
-      this.taskService.create(task).subscribe({
+      this.taskService.create(newTaskRequest).subscribe({
         next: () => this.router.navigate(['/tasks']),
       });
     }

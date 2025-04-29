@@ -12,20 +12,21 @@ import { SnackBarService } from './utility/snack-bar.service';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = environment.apiUrl+'/tasks';  
 
+  private apiUrl = environment.apiUrl+'/tasks';  
 
   constructor(
     private http: HttpClient,
     private snackbar: SnackBarService,
   ) {}
 
+   // Create a task
   create(createTask: CreateTask): Observable<CreateTask> {
     return this.http.post<ApiResponse<CreateTask>>(this.apiUrl, createTask).pipe(
       map((response) => {
         if (response.success) {
           this.snackbar.showInfo(response.message);
-          return response.data; // Return the created task
+          return response.data; 
         } else {
           this.snackbar.showError(response.message);
           throw new Error(response.message);
@@ -36,32 +37,22 @@ export class TaskService {
         this.snackbar.showError(
           error.statusText ?? `Hmmm, we've encountered an error, please try again.`
         );
-        return NEVER;  // Stop observable on error
+        return NEVER;  
       })
     );
   }
   
-
-  // Update a task
-  // update1(id: number, task: Task): Observable<Task> {
-  //   return this.http.put<Task>(`${this.apiUrl}/${id}`, task).pipe(
-  //     catchError((error) => {
-  //       console.error('Error updating task:', error);
-  //       throw error; // Or handle error gracefully
-  //     })
-  //   );
-  // }
-
-  update(id: number, task: Task): Observable<Task> {
-    return this.http.put<ApiResponse<Task>>(`${this.apiUrl}/${id}`, task).pipe(
+ // Update a task
+  update(id: number, createTask: CreateTask): Observable<CreateTask> {
+    return this.http.put<ApiResponse<CreateTask>>(`${this.apiUrl}/${id}`, createTask).pipe(
       map((response) => {
-        // Show appropriate snackbar messages
+       
         if (response.success) {
           this.snackbar.showInfo(response.message);
-          return response.data; // Return the actual task data
+          return response.data; 
         } else {
           this.snackbar.showError(response.message);
-          throw new Error(response.message); // Throw an error for unsuccessful responses
+          throw new Error(response.message);
         }
       }),
       catchError((error) => {
@@ -69,7 +60,7 @@ export class TaskService {
         this.snackbar.showError(
           error.statusText ?? `Hmmm, we've encountered an error, please try again.`
         );
-        return NEVER;  // Never emit on error
+        return NEVER;  
       })
     );
   }
@@ -78,13 +69,13 @@ export class TaskService {
   delete(id: number): Observable<any> {
     return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`).pipe(
       map((response) => {
-        // Show appropriate snackbar messages
+      
         if (response.success) {
-          this.snackbar.showInfo(response.message);  // Success message
-          return response.data;  // Return data if needed
+          this.snackbar.showInfo(response.message); 
+          return response.data;  
         } else {
-          this.snackbar.showError(response.message);  // Error message from backend
-          throw new Error(response.message);  // Throw error for failure
+          this.snackbar.showError(response.message); 
+          throw new Error(response.message); 
         }
       }),
       catchError((error) => {
@@ -92,31 +83,26 @@ export class TaskService {
         this.snackbar.showError(
           error.statusText ?? `Hmmm, we've encountered an error, please try again.`
         );
-        return NEVER;  // Never emit on error
+        return NEVER; 
       })
     );
   }
   
 
-  // // Mark a task as completed (PATCH request)
-  // complete(id: number): Observable<any> {
-  //   return this.http.patch<any>(`${this.apiUrl}/${id}/complete`, {});
-  // }
-
   // Get all tasks
   getAll(): Observable<Task[]> {
     return this.http.get<ApiResponse<Task[]>>(this.apiUrl).pipe(
       map((response) => {
-        // Make sure to extract the 'data' field that contains the actual task data
+      
         if (response.success) {
-          return response.data; // Return only the 'data' field
+          return response.data;
         } else {
           throw new Error('Failed to load data');
         }
       }),
       catchError((error) => {
         console.error('Error:', error);
-        throw error; // Or handle error gracefully
+        throw error; 
       })
     );
   }
@@ -126,16 +112,16 @@ export class TaskService {
   get(id: number): Observable<TaskRequest> {
     return this.http.get<ApiResponse<TaskRequest>>(`${this.apiUrl}/${id}`).pipe(
       map((response) => {
-        // Make sure to extract the 'data' field that contains the actual task data
+       
         if (response.success) {
-          return response.data; // Return only the 'data' field which contains the task
+          return response.data;
         } else {
           throw new Error('Failed to load task');
         }
       }),
       catchError((error) => {
         console.error('Error fetching task:', error);
-        throw error; // Or handle error gracefully
+        throw error; 
       })
     );
   }
