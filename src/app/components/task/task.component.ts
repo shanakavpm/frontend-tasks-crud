@@ -53,7 +53,7 @@ export default class TaskComponent {
     { field: 'id', headerName: 'ID', flex: 0.5, sort: 'desc' },
     { field: 'title', headerName: 'Title' },
     { field: 'description', headerName: 'Description', flex: 2, minWidth: 100 },
-    { field: 'user_name', headerName: 'User Name' },
+    { field: 'user_name', headerName: 'Created / Updated By' },
     { field: 'created_at', headerName: 'Created On', flex: 0.75 },
     { field: 'updated_at', headerName: 'Updated On', flex: 0.75 },
     { field: 'status', headerName: 'status', flex: 0.75 },
