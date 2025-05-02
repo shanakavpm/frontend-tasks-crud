@@ -16,6 +16,7 @@ import { TaskService } from '../../services/task.service';
 import { suppressKeyboardEvent } from '../../helpers/ag-grid-selection';
 import { TaskActionsComponent } from './task-actions-renderer/task-actions.component';
 import { CheckboxRendererComponent } from '../../shared/checkbox-renderer/checkbox-renderer.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'task',
@@ -36,12 +37,15 @@ import { CheckboxRendererComponent } from '../../shared/checkbox-renderer/checkb
 })
 export default class TaskComponent {
   rowData$: Observable<Task[]> | undefined;
+  user: { id: number };
 
   constructor(
     public dialog: MatDialog,
-    private taskService: TaskService
+    private taskService: TaskService,
+     private authService: AuthService
   ) {
     this.rowData$ = this.taskService.getAll(); // Fetch task data
+    this.user = this.authService.getUser();
   }
 
   // Column Definitions for AG-Grid
@@ -102,7 +106,7 @@ export default class TaskComponent {
   checkCompleted(task: Task) {
     if (task) {
       const updatedStatus = task.status === 'completed' ? 'pending' : 'completed';
-      const updatedTask: Task = { ...task, status: updatedStatus };
+      const updatedTask: Task = { ...task, status: updatedStatus, user_id: this.user.id ?? 0, }; 
       this.taskService.update(task.id, updatedTask).subscribe();
     }
   }
