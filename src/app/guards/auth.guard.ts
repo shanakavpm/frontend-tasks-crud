@@ -15,9 +15,9 @@ export class AuthGuard implements CanActivate {
       return new Observable<boolean>((observer) => observer.next(true));  // Allow access to route
     } else {
       // Redirect to login page with returnUrl (target route)
-      // this.router.navigate(['/login'], {
-      //   queryParams: { returnUrl: state.url },  // Save the target route
-      // });
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: state.url },  // Save the target route
+      });
       return new Observable<boolean>((observer) => observer.next(false));  // Block access
     }
   }
